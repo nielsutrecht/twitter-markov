@@ -22,6 +22,11 @@ public class MarkovChainTest {
         chain.add("b b a");
 
         System.out.println(chain.toString());
+
+        System.out.println(chain.generate());
+        System.out.println(chain.generate());
+        System.out.println(chain.generate());
+        System.out.println(chain.generate());
     }
 
     @Test

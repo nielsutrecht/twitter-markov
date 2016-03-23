@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class MarkovChain {
+    private final Random random = new Random();
     private final Node startNode = new Node(null);
     private final Node endNode = new Node(null);
 
@@ -34,6 +36,10 @@ public class MarkovChain {
         }
     }
 
+    public Node getStartNode() {
+        return startNode;
+    }
+
     public Node getNode(String word) {
         if(!nodeMap.containsKey(word)) {
             nodeMap.put(word, new Node(word));
@@ -42,8 +48,23 @@ public class MarkovChain {
         return nodeMap.get(word);
     }
 
+    public Map<String, Node> getNodeMap() {
+        return nodeMap;
+    }
+
     public String generate() {
-        return "Test tweet";
+        StringBuilder builder = new StringBuilder();
+
+        Node node = startNode;
+
+        while(!node.isEndNode()) {
+            if(!node.isStartNode()) {
+                builder.append(node.getWord()).append(" ");
+            }
+            node = node.next();
+        }
+
+        return builder.toString();
     }
 
     @Override
@@ -94,6 +115,10 @@ public class MarkovChain {
             this.count = 0;
         }
 
+        public Map<Node, Link> getLinkMap() {
+            return linkMap;
+        }
+
         @Override
         public boolean equals(Object other) {
             if(!(other instanceof Node)) {
@@ -125,15 +150,19 @@ public class MarkovChain {
         }
 
         public String getWord() {
-            if(this == startNode) {
+            if(isStartNode()) {
                 return "[S]";
             }
-            else if(this == endNode) {
+            else if(isEndNode()) {
                 return "[E]";
             }
             else {
                 return word;
             }
+        }
+
+        public int getCount() {
+            return count;
         }
 
         private void add(Node to) {
@@ -149,11 +178,41 @@ public class MarkovChain {
             count++;
             link.count++;
         }
+
+        public boolean isStartNode() {
+            return this == startNode;
+        }
+
+        public boolean isEndNode() {
+            return this == endNode;
+        }
+
+        public Node next() {
+            double roll = random.nextDouble();
+
+            double sum = 0.0;
+            for(Link link : linkMap.values()) {
+                sum += (double)link.count / (double)count;
+                if(roll <= sum) {
+                    return link.node;
+                }
+            }
+
+            return endNode;
+        }
     }
 
     public static class Link {
         private int count;
         private Node node;
+
+        public int getCount() {
+            return count;
+        }
+
+        public Node getNode() {
+            return node;
+        }
     }
 
     public static class WordPair {

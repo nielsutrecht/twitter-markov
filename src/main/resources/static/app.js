@@ -8,6 +8,9 @@ appModule.controller('MainCtrl', ['mainService','$scope', '$interval', function(
         mainService.applicationStatus().then(function(applicationStatus) {
             $scope.applicationStatus = applicationStatus;
         });
+        mainService.markovStatus().then(function(markovStatus) {
+            $scope.markovStatus = markovStatus;
+        });
         mainService.latestTweet().then(function(latestTweet) {
             $scope.latestTweet = latestTweet;
         });
@@ -29,6 +32,12 @@ appModule.service('mainService', function($http) {
     return {
         applicationStatus : function(username) {
             return $http.get('/applicationStatus').then(function(response) {
+                return response.data;
+            });
+        },
+
+        markovStatus : function(username) {
+            return $http.get('/markovStatus').then(function(response) {
                 return response.data;
             });
         },

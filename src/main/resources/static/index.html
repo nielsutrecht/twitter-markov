@@ -1,5 +1,5 @@
 <!doctype html>
-<html ng-app="myApp">
+<html ng-app="myApp" ng-controller="MainCtrl">
     <head>
         <meta charset="utf-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -11,18 +11,19 @@
 
         <script src="lib/angular.min.js"></script>
         <script src="app.js"></script>
+        <script src="directives/directives.js"></script>
     </head>
     <body>
-        <div class="container" ng-controller='MainCtrl'>
-            <div class="row"><div class="col-md-12"><h1>{{greeting}}</h1></div></div>
-            <div class="row"><div class="col-md-12">Number of tweets: {{applicationStatus.count}}</div></div>
-            <div class="row"><div class="col-md-12">Last tweet:</div></div>
+        <div class="container">
             <div class="row">
-                <div class="col-md-2"><img ng-src="{{latestTweet.user.profileImageURL}}"/></div>
-                <div class="col-md-10">{{latestTweet.text}}</div>
+                <div class="col-md-6">
+                    <status></status>
+                </div>
+                <div class="col-md-6">
+                    <div class="row"><div class="col-md-12">Generated tweets:</div></div>
+                    <div class="row" ng-repeat="tweet in randomTweets | orderBy:'':true | limitTo:25"><div class="col-md-12">{{tweet.text}}</div></div>
+                </div>
             </div>
-            <div class="row"><div class="col-md-12">Generated tweets:</div></div>
-            <div class="row" ng-repeat="tweet in randomTweets | orderBy:'':true | limitTo:25"><div class="col-md-12">{{tweet.text}}</div></div>
         </div>
     </body>
 </html>

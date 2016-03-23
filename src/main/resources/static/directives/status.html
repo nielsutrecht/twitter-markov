@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-6"># of tweets</div>
+    <div class="col-md-6">{{applicationStatus.count}}</div>
+</div>
+<div class="row">
+    <div class="col-md-6"># of nodes</div>
+    <div class="col-md-6">{{markovStatus.count}}</div>
+</div>
+<div class="row">
+    <div class="col-md-6"># of nodes from start</div>
+    <div class="col-md-6">{{markovStatus.startCount}}</div>
+</div>
+<div class="row">
+    <div class="col-md-12">Latest tweet</div>
+</div>
+<div class="row">
+    <tweet tweet="latestTweet"></tweet>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">Top occurring words</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Word</div>
+            <div class="col-md-4">#</div>
+            <div class="col-md-4">%</div>
+        </div>
+        <div class="row" ng-repeat="node in markovStatus.nodes | limitTo:25">
+            <div class="col-md-4">{{node.word}}</div>
+            <div class="col-md-4">{{node.count}}</div>
+            <div class="col-md-4">{{node.count / markovStatus.count * 100 | number : 1}}%</div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">Top occurring words at tweet start</div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">Word</div>
+            <div class="col-md-4">#</div>
+            <div class="col-md-4">%</div>
+        </div>
+        <div class="row" ng-repeat="link in markovStatus.startLinks | limitTo:25">
+            <div class="col-md-4">{{link.word}}</div>
+            <div class="col-md-4">{{link.count}}</div>
+            <div class="col-md-4">{{link.count / markovStatus.startCount * 100 | number : 1}}%</div>
+        </div>
+    </div>
+</div>
