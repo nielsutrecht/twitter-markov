@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="lib/css/bootstrap.min.css">
         <link rel="stylesheet" href="lib/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="style.css">
 
         <script src="lib/angular.min.js"></script>
         <script src="app.js"></script>
@@ -21,7 +22,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row"><div class="col-md-12">Generated tweets:</div></div>
-                    <div class="row" ng-repeat="tweet in randomTweets | orderBy:'':true | limitTo:25"><div class="col-md-12">{{tweet.text}}</div></div>
+                    <div class="row" ng-repeat="tweet in randomTweets | orderBy:'':true | limitTo:25"><div class="col-md-12 tweet-text">{{tweet.text}}</div></div>
                 </div>
             </div>
         </div>

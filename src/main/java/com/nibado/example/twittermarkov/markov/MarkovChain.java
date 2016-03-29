@@ -40,6 +40,10 @@ public class MarkovChain {
         return startNode;
     }
 
+    public Node getEndNode() {
+        return endNode;
+    }
+
     public Node getNode(String word) {
         if(!nodeMap.containsKey(word)) {
             nodeMap.put(word, new Node(word));

@@ -1,0 +1,11 @@
+.tweet-text {
+    margin-bottom: 4px;
+    border-radius: 8px;
+    border: 1px solid black;
+    padding: 8px;
+
+}
+
+.tweet-row {
+    border: 1px solid black;
+}

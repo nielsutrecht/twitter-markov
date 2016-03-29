@@ -30,25 +30,25 @@ appModule.controller('MainCtrl', ['mainService','$scope', '$interval', function(
 
 appModule.service('mainService', function($http) {
     return {
-        applicationStatus : function(username) {
+        applicationStatus : function() {
             return $http.get('/applicationStatus').then(function(response) {
                 return response.data;
             });
         },
 
-        markovStatus : function(username) {
+        markovStatus : function() {
             return $http.get('/markovStatus').then(function(response) {
                 return response.data;
             });
         },
 
-        latestTweet : function(role) {
+        latestTweet : function() {
             return $http.get('/latestTweet').then(function(response){
                 return response.data;
             });
         },
 
-        random : function(role) {
+        random : function() {
             return $http.get('/random').then(function(response){
                 return response.data;
             });
