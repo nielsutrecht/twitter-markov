@@ -17,12 +17,55 @@
     <body>
         <div class="container">
             <div class="row">
+                <div class="col-md-12">
+                    <h1>Twitter Markov chain example</h1>
+                    <p>
+                        This demo application can either show random tweets based on a sample of the current English twitter
+                        feed or you can enter a username and generate random tweets based on a user's timeline. Use the button
+                        below to to switch between the views.
+                    </p>
+                    <button ng-click="toggle()">Show random tweets based on <span ng-if="forUser">random samples</span><span ng-if="!forUser">a user's timeline</span></button>
+                    <hr/>
+                </div>
+            </div>
+            <div class="row" ng-if="!forUser">
+                <div class="col-md-12">
+                    <p>
+                        On the left you see a status overview of the current assembled Markov chain as well as a random
+                        live tweet. On the right you see a list of randomly generated tweets based on the current Markov chain.
+                        Although the status only gets updated with an interval of 1 second the feed into the chain is constant.
+                    </p>
+                    <hr/>
+                </div>
                 <div class="col-md-6">
                     <status></status>
                 </div>
                 <div class="col-md-6">
                     <div class="row"><div class="col-md-12">Generated tweets:</div></div>
                     <div class="row" ng-repeat="tweet in randomTweets | orderBy:'':true | limitTo:25"><div class="col-md-12 tweet-text">{{tweet.text}}</div></div>
+                </div>
+            </div>
+            <div class="row" ng-if="forUser">
+                <div class="col-md-12">
+                    <p>
+                        In this view you can generate random tweets based on the timeline of the user. Input a valid twitter
+                        username and press 'Go' or click one of the users in the 'history' list. Unlike the random sameple
+                        feed the timeline of the user is only downloaded once.
+                    </p>
+                    <hr/>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12"><label for="input-username"></label><input id="input-username" type="text" ng-model="user.name"><button ng-click="timelineGo()">Go</button></div>
+                    </div>
+                    <div class="row"><div class="col-md-12">History:</div></div>
+                    <div class="row" ng-repeat="u in user.history | orderBy:'$index':true">
+                        <div class="col-md-12"><a ng-click="timelineGo(u)" class="pointer">{{u}}</a></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row"><div class="col-md-12">Generated tweets:</div></div>
+                    <div class="row" ng-repeat="tweet in user.tweets | orderBy:'':true | limitTo:25"><div class="col-md-12 tweet-text">{{tweet.text}}</div></div>
                 </div>
             </div>
         </div>

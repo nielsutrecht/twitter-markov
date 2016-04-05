@@ -75,11 +75,7 @@ public class StatusController {
 
     @RequestMapping("/random")
     public RandomResponse random() {
-        RandomResponse response = new RandomResponse();
-
-        response.text = markovChain.generate();
-
-        return response;
+        return new RandomResponse(markovChain.generate());
     }
 
     public static class StatusResponse {
@@ -112,9 +108,5 @@ public class StatusController {
             this.word = word;
             this.count = count;
         }
-    }
-
-    public static class RandomResponse {
-        public String text;
     }
 }

@@ -1,6 +1,7 @@
 package com.nibado.example.twittermarkov;
 
 import com.nibado.example.twittermarkov.markov.MarkovChain;
+import com.nibado.example.twittermarkov.twitter.StatusSearch;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,13 +34,28 @@ public class ApplicationConfiguration {
     }
 
     @Bean
+    public TwitterFactory getTwitterFactory() {
+        return new TwitterFactory(getConfigurationBuilder().build());
+    }
+
+    @Bean
     public TwitterStreamFactory getTwitterStreamFactory() {
+        return new TwitterStreamFactory(getConfigurationBuilder().build());
+    }
+
+    @Bean
+    public StatusSearch getStatusSearch() {
+        return new StatusSearch();
+    }
+
+    private ConfigurationBuilder getConfigurationBuilder() {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
                 .setOAuthConsumerKey(t4jConsumerKey)
                 .setOAuthConsumerSecret(t4jConsumerSecret)
                 .setOAuthAccessToken(t4jAccessToken)
                 .setOAuthAccessTokenSecret(t4jAccessTokenSecret);
-        return new TwitterStreamFactory(cb.build());
+
+        return cb;
     }
 }
